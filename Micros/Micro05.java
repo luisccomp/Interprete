@@ -32,7 +32,10 @@ public class Micro05 {
         int x, h, m;
         Scanner s = new Scanner(System.in);
 
-        for (x = 0; x < 5; x ++) {
+        h = 0;
+        m = 0;
+
+        for (x = 0; x < 2; x ++) {
             System.out.printf("Digite o nome: ");
             nome = s.nextLine();
             System.out.printf("H - homem ou M - mulher: ");
@@ -49,5 +52,8 @@ public class Micro05 {
                     System.out.printf("Sexo so pode ser M ou H\n");
             }
         }
+
+        System.out.printf("Foram inseridos %d homens", h);
+        System.out.printf("Foram inseridos %d mulheres", m);
     }
 }

@@ -159,6 +159,10 @@ let rec interpreta_exp amb exp =
                 | Igual -> ExpBool (pega_string vesq = pega_string vdir, top)
                 | Difer -> ExpBool (pega_string vesq <> pega_string vdir, top)
                 | _ -> failwith "interpreta_relacional: string")
+            | Char ->
+               (match op with
+                | Igual -> ExpBool (pega_char vesq = pega_char vdir, top)
+                | Difer -> ExpBool (pega_char vesq <> pega_char vdir, top))
             | _ -> failwith "interpreta_relacional")
 
         (* Avalia e retorna o valor de uma exoressão lógica *)
@@ -178,6 +182,26 @@ let rec interpreta_exp amb exp =
             | Logico -> interpreta_logico ())
         in
         valor
+
+    (* Avalia uma expressão unária. *)
+    | ExpUn ((op,top),(dir,tdir)) ->
+        (* Interpreta a expressão à direita do operador *)
+        let vdir = interpreta_exp amb dir in
+       (match tdir with
+        | Int ->
+           (match op with
+            | UMenos -> ExpInt ((-1) * pega_int vdir, top)
+            | _ -> failwith "expun: inteiro")
+        | Float ->
+           (match op with
+            | UMenos -> ExpFloat ((-1.0) *. pega_float vdir, top)
+            | _ -> failwith "expun: float")
+        | Bool ->
+           (match op with
+            | Not ->
+                let b = pega_bool vdir in
+                ExpBool (not (b), top))
+        | _ -> failwith "expfun")
 
     (* Avalia uma chamada de função *)
     | ExpFun (id,args,tipo) ->
