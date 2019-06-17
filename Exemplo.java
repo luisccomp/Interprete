@@ -5,7 +5,7 @@ public class Exemplo {
         i = 0;
 
         while (i < 10) {
-            System.out.printf("Ola");
+            System.out.printf("Melzim UwU OwO");
             i = i + 1;
         }
     }
